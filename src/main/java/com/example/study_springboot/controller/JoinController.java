@@ -1,20 +1,24 @@
 package com.example.study_springboot.controller;
 
-import com.example.study_springboot.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.study_springboot.dto.MemberDto;
+import com.example.study_springboot.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-//@RestController
-@RestController
-@RequestMapping("/api/join")
+@RequiredArgsConstructor
+@Controller
 public class JoinController {
-    @Autowired
-    private UserService userService;
+
+    private final MemberService memberService;
     @GetMapping("/join")
     public String join(){
         return "content/join";
+    }
+
+    @PostMapping("/join")
+    public String createMember(MemberDto memberDto){
+        Long id = memberService.join(memberDto);
+        return "content/homepage";
     }
 }
