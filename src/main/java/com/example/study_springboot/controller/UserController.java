@@ -37,12 +37,18 @@ public class UserController {
     @GetMapping("/join")
     public String joinPage(Model model) {
         model.addAttribute("user", new User());
-        return "../static/join";
+        return "join";
     }
 
     @PostMapping("/join")
     public String join(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
     }
 }
