@@ -19,19 +19,27 @@ public class UserController {
     @GetMapping("/login")
     public String loginPage(Model model) {
         model.addAttribute("userDTO", new UserDto());
-        return "../static/login";
+        return "login";
     }
 
     @PostMapping("/login")
     public String login(@ModelAttribute("userDTO") UserDto userDTO, HttpSession session, Model model) {
-        User user = userService.findByLoginId(userDTO.getLoginId());
+        try{
+            User user = userService.loginUser(userDTO.getLoginId(), userDTO.getPassword());
+            session.setAttribute("userId", user.getLoginId());
+            return "redirect:/";
+        } catch (IllegalArgumentException e){
+            model.addAttribute("error", e.getMessage());
+            return "login";
+        }
+        /*User user = userService.findByLoginId(userDTO.getLoginId());
         if (user != null && user.getPassword().equals(userDTO.getPassword())) {
             session.setAttribute("userId", user.getLoginId());
             return "redirect:/";
         } else {
             model.addAttribute("error", "Invalid login credentials");
-            return "../static/login";
-        }
+            return "login";
+        }*/
     }
 
     @GetMapping("/join")
@@ -41,9 +49,16 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(@ModelAttribute("user") User user) {
-        userService.save(user);
-        return "redirect:/login";
+    public String join(@ModelAttribute("user") User user, Model model) {
+        try{
+            userService.joinUser(user);
+            return "redirect:/login";
+        } catch (IllegalArgumentException e){
+            model.addAttribute("error", e.getMessage());
+            return "join";
+        }
+        /*userService.save(user);
+        return "redirect:/login";*/
     }
 
     @GetMapping("/logout")
