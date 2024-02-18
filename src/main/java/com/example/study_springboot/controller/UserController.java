@@ -3,6 +3,7 @@ package com.example.study_springboot.controller;
 import com.example.study_springboot.user.User;
 import com.example.study_springboot.user.UserDto;
 import com.example.study_springboot.user.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,15 +23,14 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute("userDTO") UserDto userDTO, Model model) {
+    public String login(@ModelAttribute("userDTO") UserDto userDTO, HttpSession session, Model model) {
         User user = userService.findByLoginId(userDTO.getLoginId());
         if (user != null && user.getPassword().equals(userDTO.getPassword())) {
-            // 로그인 성공
-            return "redirect:/"; // 로그인 후 홈페이지로 리다이렉트
+            session.setAttribute("userId", user.getLoginId());
+            return "redirect:/";
         } else {
-            // 로그인 실패
             model.addAttribute("error", "Invalid login credentials");
-            return "../static/login"; // 로그인 페이지 유지
+            return "../static/login";
         }
     }
 

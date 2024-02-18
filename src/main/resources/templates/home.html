@@ -5,8 +5,14 @@
     <title>Home Page</title>
 </head>
 <body>
-<h1>Welcome to the Home Page</h1>
-    <a href="/login">Login</a>
-    <a href="/join">Join</a>
+    <h1>홈페이지</h1>
+    <div th:unless="${session.userId}">
+        <a href="/login">로그인</a>
+        <a href="/join">회원가입</a>
+    </div>
+
+    <div th:if="${session.userId}">
+        <a href="/board">게시판</a>
+    </div>
 </body>
 </html>
