@@ -32,14 +32,6 @@ public class UserController {
             model.addAttribute("error", e.getMessage());
             return "login";
         }
-        /*User user = userService.findByLoginId(userDTO.getLoginId());
-        if (user != null && user.getPassword().equals(userDTO.getPassword())) {
-            session.setAttribute("userId", user.getLoginId());
-            return "redirect:/";
-        } else {
-            model.addAttribute("error", "Invalid login credentials");
-            return "login";
-        }*/
     }
 
     @GetMapping("/join")
@@ -57,8 +49,6 @@ public class UserController {
             model.addAttribute("error", e.getMessage());
             return "join";
         }
-        /*userService.save(user);
-        return "redirect:/login";*/
     }
 
     @GetMapping("/logout")

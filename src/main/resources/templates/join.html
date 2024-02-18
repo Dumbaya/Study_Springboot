@@ -16,5 +16,11 @@
         <input type="submit" value="Join">
     </form>
     <div th:if="${error}" style="color:red" th:text="${error}"></div>
+    <form action="/" method="get">
+        <button type="submit">홈페이지</button>
+    </form>
+    <form action="/login" method="get">
+        <button type="submit">로그인</button>
+    </form>
 </body>
 </html>
