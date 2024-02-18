@@ -16,10 +16,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login")
+    @GetMapping("/user/login")
     public String loginPage(Model model) {
         model.addAttribute("userDTO", new UserDto());
-        return "login";
+        return "user/login";
     }
 
     @PostMapping("/login")
@@ -30,14 +30,14 @@ public class UserController {
             return "redirect:/";
         } catch (IllegalArgumentException e){
             model.addAttribute("error", e.getMessage());
-            return "login";
+            return "user/login";
         }
     }
 
-    @GetMapping("/join")
+    @GetMapping("/user/join")
     public String joinPage(Model model) {
         model.addAttribute("user", new User());
-        return "join";
+        return "user/join";
     }
 
     @PostMapping("/join")
@@ -47,7 +47,7 @@ public class UserController {
             return "redirect:/login";
         } catch (IllegalArgumentException e){
             model.addAttribute("error", e.getMessage());
-            return "join";
+            return "user/join";
         }
     }
 
