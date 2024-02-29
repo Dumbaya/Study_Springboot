@@ -9,4 +9,7 @@ public class BoardController {
     public String boardPage(){
         return "board/board";
     }
+
+    @GetMapping("/board/boardwrite")
+    public String boardWritePage(){return "board/boardwrite";}
 }

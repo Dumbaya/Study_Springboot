@@ -7,11 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDto {
-    @NotBlank(message = "아이디가 중복입니다.")
+    @NotBlank(message = "아이디 없습니다.")
     private String loginId;
 
     private String password;
 
-    @NotBlank(message = "이메일이 중복입니다.")
+    @NotBlank(message = "이메일이 없습니다.")
     private String email;
 }
